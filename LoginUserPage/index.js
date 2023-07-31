@@ -16,7 +16,7 @@ mongoose
       '?retryWrites=true&w=majority'
   )
   .then(() => {
-    console.log('MongoDBと接続できました。');
+    console.log('MongoDBと接続できました');
   })
   .catch((error) => {
     console.error('MongoDBと接続できませんでした・・・');
@@ -66,5 +66,5 @@ app.post('/create/user', (req, res) => {
 
 // サーバ待機処理 //
 app.listen(5100, () => {
-  console.log('5100番で準備が出来ました。5100にアクセスできます。');
+  console.log('5100番で準備が出来ました。5100にアクセスできます');
 });
