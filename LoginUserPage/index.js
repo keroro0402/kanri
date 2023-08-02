@@ -22,6 +22,7 @@ mongoose
     console.error('MongoDBと接続できませんでした・・・');
   });
 
+// Schemaの設定
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   loginUserId: {
@@ -36,6 +37,7 @@ const UserSchema = new Schema({
   },
 });
 
+// Modelの設定
 const UserModel = mongoose.model('User', UserSchema);
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
@@ -43,7 +45,12 @@ app.get('/', (req, res) => {
 
 // ユーザ登録ページにアクセスした時の処理
 app.get('/create/user', (req, res) => {
-  res.sendFile(__dirname + '/dist/index.html');
+  res.sendFile(__dirname + '/dist/userCreate.html');
+});
+
+// ログインページにアクセスした時の処理
+app.get('/user/login', (req, res) => {
+  res.sendFile(__dirname + '/dist/login.html');
 });
 
 // ユーザ登録ページから送信した時の処理
@@ -51,7 +58,7 @@ app.post('/create/user', (req, res) => {
   const result = UserModel.findOne({ loginUserId: req.body.loginUserId });
   result.then((data) => {
     if (data) {
-      console.log('登録済みのIDなのでできません');
+      console.log('登録済みのIDなので登録できません');
       res.sendFile(__dirname + '/dist/index.html');
     } else {
       console.log('登録できます');
