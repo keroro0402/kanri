@@ -5,6 +5,7 @@ app.use('/assets', express.static(__dirname + '/dist/assets')); // POSTされた
 
 // MongoDBの設定
 const mongoose = require('mongoose');
+const { useModel } = require('vue');
 const mongoPw = 'keroro0402';
 const mongoName = 'kanrisystem';
 mongoose
@@ -48,11 +49,6 @@ app.get('/create/user', (req, res) => {
   res.sendFile(__dirname + '/dist/userCreate.html');
 });
 
-// ログインページにアクセスした時の処理
-app.get('/user/login', (req, res) => {
-  res.sendFile(__dirname + '/dist/login.html');
-});
-
 // ユーザ登録ページから送信した時の処理
 app.post('/create/user', (req, res) => {
   const result = UserModel.findOne({ loginUserId: req.body.loginUserId });
@@ -62,8 +58,8 @@ app.post('/create/user', (req, res) => {
       res.sendFile(__dirname + '/dist/index.html');
     } else {
       console.log('登録できます');
-      const d = UserModel.create(req.body);
-      d.then((data) => {
+      const userData = UserModel.create(req.body);
+      userData.then((data) => {
         console.log('登録しました');
         res.send('登録できました');
       });
@@ -71,6 +67,31 @@ app.post('/create/user', (req, res) => {
   });
 });
 
+// ログインページにアクセスした時の処理
+app.get('/user/login', (req, res) => {
+  res.sendFile(__dirname + '/dist/login.html');
+});
+
+// ログインページから送信した時の処理
+app.post('/user/login', (req, res) => {
+  const result = UserModel.findOne({ loginUserId: req.body.loginUserId });
+  result.then((data) => {
+    // 入力したIDが登録されていた時の処理
+    if (data) {
+      console.log('ユーザはいます');
+      // 入力したPWが登録されていた時の処理
+      if (data.loginUserPw === req.body.loginUserPw) {
+        res.send('ログイン成功です！！！');
+        // 入力したPWが登録されていない時の処理
+      } else {
+        res.send('PWが違います');
+      }
+      // 入力したIDが登録されていない時の処理
+    } else {
+      res.send('ユーザがいません');
+    }
+  });
+});
 // サーバ待機処理 //
 app.listen(5100, () => {
   console.log('5100番で準備が出来ました。5100にアクセスできます！！');
