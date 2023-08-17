@@ -40,7 +40,21 @@ const UserSchema = new Schema({
 
 // Modelの設定
 const UserModel = mongoose.model('User', UserSchema);
+
+//　TOPページにアクセスした時の処理
 app.get('/', (req, res) => {
+  console.log('TOPページです');
+  const allUser = UserModel.find();
+
+  const promise = new Promise((resolve) => {
+    const allUser = UserModel.find();
+    resolve(allUser);
+  });
+
+  promise.then((data) => {
+    console.log(data);
+  });
+
   res.sendFile(__dirname + '/dist/index.html');
 });
 
