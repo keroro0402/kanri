@@ -97,4 +97,5 @@ app.listen(5100, () => {
   console.log('5100番で準備が出来ました。5100にアクセスできます！！');
 });
 
-// テストテスト222
+// テストテスト2223
+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;
