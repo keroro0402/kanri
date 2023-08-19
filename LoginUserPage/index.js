@@ -25,6 +25,7 @@ mongoose
 
 // Schemaの設定
 const Schema = mongoose.Schema;
+// ユーザ登録用スキーマ
 const UserSchema = new Schema({
   loginUserId: {
     // キー名はフォームのname属性と同じにするべし!
@@ -37,9 +38,33 @@ const UserSchema = new Schema({
     required: true,
   },
 });
+// タスク登録用スキーマ
+const TaskSchema = new Schema({
+  taskTitle: {
+    type: 'string',
+    required: true,
+    unique: true,
+  },
+  taskSummary: {
+    type: 'string',
+    required: true,
+    unique: false,
+  },
+  taskImage: {
+    type: 'string',
+    required: false,
+    unique: false,
+  },
+  taskMemo: {
+    type: 'string',
+    required: false,
+    unique: false,
+  },
+});
 
 // Modelの設定
-const UserModel = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model('User', UserSchema); // ユーザ登録用モデル
+const TaskModel = mongoose.model('Task', TaskSchema); // タスク用モデル
 
 //　TOPページにアクセスした時の処理
 app.get('/', (req, res) => {
@@ -58,13 +83,23 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
+// タスク登録用ページにアクセスした時の処理
+app.get('/task/create', (req, res) => {
+  res.sendFile(__dirname + '/dist/taskCreate.html');
+});
+
+// タスク登録用ページから送信した時の処理
+app.post('/task/create', (req, res) => {
+  res.send('タスクを送信しました');
+});
+
 // ユーザ登録ページにアクセスした時の処理
-app.get('/create/user', (req, res) => {
+app.get('/user/create', (req, res) => {
   res.sendFile(__dirname + '/dist/userCreate.html');
 });
 
 // ユーザ登録ページから送信した時の処理
-app.post('/create/user', (req, res) => {
+app.post('/user/create', (req, res) => {
   const result = UserModel.findOne({ loginUserId: req.body.loginUserId });
   result.then((data) => {
     if (data) {

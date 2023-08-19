@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 const formProperty = ref({
-  action: '/loginuser/create',
+  action: '/user/login',
   method: 'POST',
 });
-const title = ref('ログインユーザ登録');
+const title = ref('ログイン');
 const idProperty = ref({
   type: 'text',
   id: 'loginUserId',
@@ -22,9 +22,9 @@ const buttonProperty = reactive({
     type: 'submit',
     name: 'submitButton',
   },
-  registerButton: {
-    text: '登録',
-    value: 'register',
+  loginButton: {
+    text: 'ログイン',
+    value: 'login',
   },
   backButton: {
     text: '戻る',
@@ -45,7 +45,7 @@ function firstFocus() {
 <template>
   <section>
     <h1>{{ title }}</h1>
-    <form v-bind="formProperty" action="/create/user" method="POST">
+    <form v-bind="formProperty">
       <table>
         <tr>
           <td>
@@ -75,9 +75,9 @@ function firstFocus() {
           <td colspan="2">
             <button
               v-bind:object="buttonProperty.common"
-              v-bind:value="buttonProperty.registerButton.value"
+              v-bind:value="buttonProperty.loginButton.value"
             >
-              {{ buttonProperty.registerButton.text }}
+              {{ buttonProperty.loginButton.text }}
             </button>
             <button
               onclick="history.back()"

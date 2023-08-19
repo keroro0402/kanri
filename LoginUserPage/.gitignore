@@ -30,3 +30,4 @@ coverage
 favicon.ico
 views/
 ../sample.txt
+./dist
