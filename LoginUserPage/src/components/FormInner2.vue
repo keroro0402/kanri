@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 const formProperty = ref({
   action: '/task/create',
   method: 'POST',
@@ -11,10 +11,102 @@ const taskTitleProperty = ref({
   name: 'taskTitle',
   text: 'タイトル',
 });
+
 const taskSummaryProperty = ref({
   type: 'text',
   id: 'taskSummary',
   name: 'taskSummary',
+  text: '要約',
+});
+
+const taskTimeLimitBeginningYearProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitBeginningYear',
+  name: 'taskTimeLimitBeginningYear',
+  text: '開始年',
+});
+
+const taskTimeLimitBeginningMonthProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitBeginningMonth',
+  name: 'taskTimeLimitBeginningMonth',
+  text: '開始月',
+});
+
+const taskTimeLimitBeginningDateProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitBeginningDate',
+  name: 'taskTimeLimitBeginningDate',
+  text: '開始日',
+});
+
+const taskTimeLimitBeginningDayProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitBeginningDay',
+  name: 'taskTimeLimitBeginningDay',
+  text: '開始曜日',
+});
+
+const taskTimeLimitBeginningHourProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitBeginningHour',
+  name: 'taskTimeLimitBeginningHour',
+  text: '開始時間',
+});
+
+const taskTimeLimitBeginningMinProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitBeginningMin',
+  name: 'taskTimeLimitBeginningMin',
+  text: '開始分',
+});
+
+const taskTimeLimitEndYearProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitEndYear',
+  name: 'taskTimeLimitEndYear',
+  text: '終了年',
+});
+
+const taskTimeLimitEndMonthProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitEndMonth',
+  name: 'taskTimeLimitEndMonth',
+  text: '終了月',
+});
+
+const taskTimeLimitEndDateProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitEndDate',
+  name: 'taskTimeLimitEndDate',
+  text: '終了日',
+});
+
+const taskTimeLimitEndDayProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitEndDay',
+  name: 'taskTimeLimitEndDay',
+  text: '終了曜日',
+});
+
+const taskTimeLimitEndHourProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitEndHour',
+  name: 'taskTimeLimitEndHour',
+  text: '終了時間',
+});
+
+const taskTimeLimitEndMinProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimitEndMin',
+  name: 'taskTimeLimitEndMin',
+  text: '終了分',
+});
+
+const taskTimeLimitEndProperty = ref({
+  type: 'text',
+  id: 'taskTimeLimit',
+  name: 'taskTimeLimit',
   text: '要約',
 });
 
@@ -61,8 +153,36 @@ function firstFocus() {
     targetEl.focus();
   }
 }
+
+const calcYear = computed((): void => {
+  const now = new Date();
+  const year = now.getFullYear();
+  return year;
+});
 </script>
 <template>
+  <!--開始年編集中-->
+  <!--開始年編集中-->
+  <p>{{ calcYear }}</p>
+  <tr>
+    <td>
+      <label v-bind:for="taskTimeLimitBeginningYearProperty.id">{{
+        taskTimeLimitBeginningYearProperty.text
+      }}</label
+      >：
+      <select>
+        <option>2023</option>
+      </select>
+      <!-- <input
+              required
+              v-bind:type="taskTimeLimitBeginningYearProperty.type"
+              v-bind:id="taskTimeLimitBeginningYearProperty.id"
+              v-bind:name="taskTimeLimitBeginningYearProperty.name"
+            /> -->
+    </td>
+  </tr>
+  <!--開始年編集中-->
+  <!--開始年編集中-->
   <section>
     <h1>{{ title }}</h1>
     <form v-bind="formProperty">
@@ -95,6 +215,26 @@ function firstFocus() {
             />
           </td>
         </tr>
+
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
+        <!--開始年編集中-->
 
         <tr>
           <td>
