@@ -154,35 +154,142 @@ function firstFocus() {
   }
 }
 
-const calcYear = computed((): void => {
-  const now = new Date();
-  const year = now.getFullYear();
-  return year;
+const futureCountInit = 10; // 未来の上限
+let futureCount = ref(futureCountInit); // リアクティブ化
+const now = new Date(); // 現在時刻
+const year = ref(now.getFullYear());
+const month = ref(now.getMonth() + 1);
+const date = ref(now.getDate());
+
+// 年の設定
+const calcYear = computed((): number[] => {
+  let array: number[] = Array.of(); // 年格納用（空配列）
+  for (let i = year.value; i < year.value + futureCount.value; i++) {
+    array.push(i);
+  }
+  return array;
+});
+
+//// 年の再選択時の挙動
+const reSelectYear = (data: Event): void => {
+  // 現在の年と選択年の比較
+  const target = data.target as HTMLInputElement;
+  if (Number(target.value) > year.value) {
+    month.value = 1; // 1月を設定
+  } else {
+    month.value = now.getMonth() + 1; // 現在の月を設定
+  }
+};
+
+// 月の設定
+const selectedMonth = ref(month);
+const calcMonth = computed((): number[] => {
+  let array: number[] = Array.of(); // 年格納用（空配列）
+  for (let i = month.value; i <= 12; i++) {
+    array.push(i);
+  }
+  return array;
+});
+
+//// 月の再選択時の挙動
+const reSelectMonth = (data: Event): void => {
+  // 現在の月と選択月の比較
+  console.log('sasasa');
+};
+
+// 日の設定
+const selectedDate = ref(date);
+now.setMonth(selectedMonth.value, 0);
+
+const startDate = 1;
+
+const endDate = now.getDate();
+
+const calcDate = computed((): number[] => {
+  let array: number[] = Array.of(); // 日格納用（空配列）
+  for (let i = startDate; i <= endDate; i++) {
+    array.push(i);
+  }
+  return array;
 });
 </script>
+
 <template>
   <!--開始年編集中-->
   <!--開始年編集中-->
-  <p>{{ calcYear }}</p>
   <tr>
     <td>
       <label v-bind:for="taskTimeLimitBeginningYearProperty.id">{{
         taskTimeLimitBeginningYearProperty.text
       }}</label
       >：
-      <select>
-        <option>2023</option>
+      <select v-on:change="reSelectYear">
+        <option
+          required
+          v-bind:value="item"
+          v-bind:type="taskTimeLimitBeginningYearProperty.type"
+          v-bind:id="taskTimeLimitBeginningYearProperty.id"
+          v-bind:name="taskTimeLimitBeginningYearProperty.name"
+          v-for="item in calcYear"
+        >
+          {{ item }}
+        </option>
       </select>
-      <!-- <input
-              required
-              v-bind:type="taskTimeLimitBeginningYearProperty.type"
-              v-bind:id="taskTimeLimitBeginningYearProperty.id"
-              v-bind:name="taskTimeLimitBeginningYearProperty.name"
-            /> -->
     </td>
   </tr>
   <!--開始年編集中-->
   <!--開始年編集中-->
+
+  <!--開始月編集中-->
+  <!--開始月編集中-->
+  <tr>
+    <td>
+      <label v-bind:for="taskTimeLimitBeginningMonthProperty.id">{{
+        taskTimeLimitBeginningMonthProperty.text
+      }}</label
+      >：
+      <select v-on:change="reSelectMonth" v-model="selectedMonth">
+        <option
+          required
+          v-bind:value="item"
+          v-bind:type="taskTimeLimitBeginningMonthProperty.type"
+          v-bind:id="taskTimeLimitBeginningMonthProperty.id"
+          v-bind:name="taskTimeLimitBeginningMonthProperty.name"
+          v-for="item in calcMonth"
+        >
+          {{ item }}
+        </option>
+      </select>
+    </td>
+  </tr>
+  <!--開始月編集中-->
+  <!--開始月編集中-->
+
+  <!--開始日編集中-->
+  <!--開始日編集中-->
+  <tr>
+    <td>
+      <label v-bind:for="taskTimeLimitBeginningDateProperty.id">{{
+        taskTimeLimitBeginningDateProperty.text
+      }}</label
+      >：
+      <select v-model="selectedDate">
+        <option
+          required
+          v-bind:value="item"
+          v-bind:type="taskTimeLimitBeginningDateProperty.type"
+          v-bind:id="taskTimeLimitBeginningDateProperty.id"
+          v-bind:name="taskTimeLimitBeginningDateProperty.name"
+          v-for="item in calcDate"
+        >
+          {{ item }}
+        </option>
+      </select>
+    </td>
+  </tr>
+  <!--開始日編集中-->
+  <!--開始日編集中-->
+
   <section>
     <h1>{{ title }}</h1>
     <form v-bind="formProperty">
@@ -216,20 +323,6 @@ const calcYear = computed((): void => {
           </td>
         </tr>
 
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
-        <!--開始年編集中-->
         <!--開始年編集中-->
         <!--開始年編集中-->
         <!--開始年編集中-->
